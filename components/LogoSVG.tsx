@@ -1,3 +1,4 @@
+// Final Redesign Version - 3D Logo and Sequential Video Hero
 export default function LogoSVG({ size = 22 }: { size?: number }) {
     return (
         <svg
