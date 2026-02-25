@@ -8,14 +8,7 @@ node_modules/
 out/
 dist/
 
-# Videos (too large for git)
-public/video/
-*.mp4
-*.mov
-*.avi
-*.webm
-
-# Misc
+# Miscellaneous
 .DS_Store
 *.pem
 .env

@@ -21,12 +21,6 @@ export default function Navbar() {
                     <a href="#contato">Contato</a>
                 </nav>
                 <div className="header-cta">
-                    <a className="btn-outline" href="tel:+554198432-1567">
-                        <i className="ri-phone-line"></i> (41) 9 8432-1567
-                    </a>
-                    <a className="btn-outline" href="tel:+554199156-7834">
-                        <i className="ri-phone-line"></i> (41) 9 9156-7834
-                    </a>
                     <a className="btn-gold" href="#contato">Fale Conosco</a>
                 </div>
             </div>
