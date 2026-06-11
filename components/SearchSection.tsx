@@ -27,7 +27,7 @@ export default function SearchSection() {
                             <option>Água Verde</option>
                             <option>Centro</option>
                             <option>Bigorrilho</option>
-                            <option>Cabral</option>
+                            <option>Ecoville</option>
                             <option>Mercês</option>
                         </select>
                     </div>

@@ -1,16 +1,19 @@
 'use client';
 import { useState, useRef, useEffect, FormEvent, KeyboardEvent } from 'react';
 
-const PROPERTIES = [
-  { id: 1, title: "Apartamento Alto Padrão no Batel", price: "R$ 850.000", priceLabel: "/ à vista", type: "Venda", location: "Batel – PR", beds: "3 quartos", baths: "2 banheiros", area: "120m²", img: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80" },
-  { id: 2, title: "Casa Moderna com Piscina", price: "R$ 4.500", priceLabel: "/ mês", type: "Locação", location: "Água Verde – PR", beds: "4 quartos", baths: "3 banheiros", area: "280m²", img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" },
-  { id: 3, title: "Cobertura Duplex com Vista Panorâmica", price: "R$ 1.350.000", priceLabel: "/ à vista", type: "Venda", location: "Centro – PR", beds: "4 quartos", baths: "4 banheiros", area: "320m²", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" },
-  { id: 4, title: "Apartamento Compacto no Bigorrilho", price: "R$ 480.000", priceLabel: "/ à vista", type: "Venda", location: "Bigorrilho – PR", beds: "2 quartos", baths: "2 banheiros", area: "75m²", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
-  { id: 5, title: "Sala Comercial Prime no Centro", price: "R$ 8.000", priceLabel: "/ mês", type: "Locação", location: "Centro – PR", beds: "Comercial", baths: "2 banheiros", area: "180m²", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" },
-  { id: 6, title: "Casa Residencial nas Mercês", price: "R$ 720.000", priceLabel: "/ à vista", type: "Venda", location: "Mercês – PR", beds: "3 quartos", baths: "3 banheiros", area: "210m²", img: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80" },
-];
-
-type Property = typeof PROPERTIES[0];
+type Property = {
+  id: string;
+  seq: number;
+  title: string;
+  price: string;
+  price_label: string;
+  type: string;
+  location: string;
+  beds: string;
+  baths: string;
+  area: string;
+  img: string;
+};
 
 interface Message {
   role: 'user' | 'assistant';
@@ -25,12 +28,12 @@ const QUICK_ACTIONS = [
   'Quero falar com um corretor',
 ];
 
-function parseResponse(raw: string): { text: string; properties: Property[] } {
+function parseResponse(raw: string, allProps: Property[]): { text: string; properties: Property[] } {
   const match = raw.match(/<properties>\[([^\]]*)\]<\/properties>/);
   let properties: Property[] = [];
   if (match && match[1].trim()) {
     const ids = match[1].split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
-    properties = PROPERTIES.filter(p => ids.includes(p.id));
+    properties = allProps.filter(p => ids.includes(p.seq));
   }
   const text = raw.replace(/<properties>[\s\S]*?<\/properties>/g, '').trim();
   return { text, properties };
@@ -44,10 +47,24 @@ export default function ChatBot() {
       content: 'Olá! Seja bem-vindo à Vértice Imóveis! 😊 Sou a Vértice, sua corretora virtual. Estou aqui para te ajudar a encontrar o imóvel perfeito em Curitiba.\n\nPrimeiro, me conta: você está procurando um imóvel para comprar, alugar, ou quer vender/avaliar um imóvel?',
     },
   ]);
+  const [allProperties, setAllProperties] = useState<Property[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [leadId, setLeadId] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // carrega portfólio do banco ao abrir o chat
+  useEffect(() => {
+    if (open && allProperties.length === 0) {
+      fetch('/api/properties')
+        .then(r => r.json())
+        .then((data: Property[]) => {
+          setAllProperties(data.map((p, i) => ({ ...p, seq: i + 1 })));
+        })
+        .catch(() => {});
+    }
+  }, [open, allProperties.length]);
 
   useEffect(() => {
     if (open) {
@@ -70,10 +87,13 @@ export default function ChatBot() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({ messages: apiMessages, leadId }),
       });
       const data = await res.json();
-      const { text: cleanText, properties } = parseResponse(data.content || '');
+
+      if (data.leadId && !leadId) setLeadId(data.leadId);
+
+      const { text: cleanText, properties } = parseResponse(data.content || '', allProperties);
 
       setMessages(prev => [
         ...prev,
@@ -140,7 +160,7 @@ export default function ChatBot() {
                             <span className={`chat-prop-badge${p.type === 'Locação' ? ' green' : ''}`}>{p.type}</span>
                             <p className="chat-prop-title">{p.title}</p>
                             <p className="chat-prop-price">
-                              {p.price} <span>{p.priceLabel}</span>
+                              {p.price} <span>{p.price_label}</span>
                             </p>
                             <p className="chat-prop-loc">
                               <i className="ri-map-pin-2-line"></i>{p.location}
