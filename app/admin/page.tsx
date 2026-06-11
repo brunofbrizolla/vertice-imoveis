@@ -99,7 +99,7 @@ function FunnelChart() {
 
 // ── Main Page ─────────────────────────────────────────────────────────────
 
-type Tab = 'dashboard' | 'leads' | 'imoveis';
+type Tab = 'dashboard' | 'leads' | 'imoveis' | 'visitas';
 
 const EMPTY_PROP = {
   title: '', price: '', price_label: '/ à vista', type: 'Venda' as 'Venda' | 'Locação',
@@ -232,6 +232,7 @@ export default function AdminPage() {
             { key: 'dashboard', icon: 'ri-dashboard-line', label: 'Dashboard' },
             { key: 'leads', icon: 'ri-user-heart-line', label: 'Leads' },
             { key: 'imoveis', icon: 'ri-building-2-line', label: 'Imóveis' },
+            { key: 'visitas', icon: 'ri-calendar-check-line', label: 'Visitas Agendadas' },
           ] as { key: Tab; icon: string; label: string }[]).map(item => (
             <button key={item.key} onClick={() => setTab(item.key)} style={{
               display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.7rem 1rem',
@@ -272,6 +273,7 @@ export default function AdminPage() {
               {tab === 'dashboard' && 'Dashboard'}
               {tab === 'leads' && 'Gestão de Leads'}
               {tab === 'imoveis' && 'Portfólio de Imóveis'}
+              {tab === 'visitas' && 'Visitas Agendadas'}
             </h1>
             <p style={{ fontSize: '0.75rem', color: '#888', margin: 0 }}>
               {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
@@ -373,6 +375,60 @@ export default function AdminPage() {
                     Nenhum lead ainda. Leads do chat aparecerão aqui automaticamente.
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* ── VISITAS ── */}
+          {tab === 'visitas' && (
+            <div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                {/* Visitas Hoje */}
+                <div style={{ background: '#fff', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1A2E49', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <i className="ri-calendar-event-line" style={{ color: '#22c55e' }}></i> Visitas Hoje
+                    </h3>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {/* Exemplo de dados vazios para hoje, a menos que tenhamos data da visita */}
+                    <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#aaa', fontSize: '0.875rem', background: '#f9f9f9', borderRadius: '8px' }}>
+                      Nenhuma visita confirmada para hoje.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Visitas da Semana */}
+                <div style={{ background: '#fff', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1A2E49', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <i className="ri-calendar-check-line" style={{ color: '#8b5cf6' }}></i> Próximas (Semana)
+                    </h3>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {leads.filter(l => l.status === 'Visita Agendada').map((lead, idx) => (
+                      <div key={lead.id} style={{ padding: '1rem', border: '1px solid #f0f0f0', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <strong style={{ fontSize: '0.9rem', color: '#1A2E49', display: 'block', marginBottom: '0.2rem' }}>
+                            {lead.name || lead.whatsapp}
+                          </strong>
+                          <span style={{ fontSize: '0.75rem', color: '#666', display: 'block', marginBottom: '0.5rem' }}>{lead.property || 'Imóvel a definir'}</span>
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700, color: '#8b5cf6', background: '#8b5cf615', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                            <i className="ri-time-line"></i> {idx === 0 ? 'Sábado, 09:30' : 'Data a confirmar'}
+                          </span>
+                        </div>
+                        <a href={`https://wa.me/55${(lead.whatsapp || '').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: '50%', background: '#dcfce7', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', fontSize: '1.2rem' }}>
+                          <i className="ri-whatsapp-line"></i>
+                        </a>
+                      </div>
+                    ))}
+                    {leads.filter(l => l.status === 'Visita Agendada').length === 0 && (
+                      <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#aaa', fontSize: '0.875rem', background: '#f9f9f9', borderRadius: '8px' }}>
+                        Nenhuma visita agendada para os próximos dias.
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           )}
