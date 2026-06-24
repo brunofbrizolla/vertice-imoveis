@@ -26,11 +26,14 @@ interface Property {
   price: string;
   price_label: string;
   type: 'Venda' | 'Locação';
+  property_type: string | null;
   location: string;
   beds: string;
   baths: string;
   area: string;
   img: string | null;
+  images: string[] | null;
+  description: string | null;
   active: boolean;
   created_at: string;
 }
@@ -103,7 +106,8 @@ type Tab = 'dashboard' | 'leads' | 'imoveis' | 'visitas';
 
 const EMPTY_PROP = {
   title: '', price: '', price_label: '/ à vista', type: 'Venda' as 'Venda' | 'Locação',
-  location: '', beds: '', baths: '', area: '', img: '',
+  property_type: 'Terreno', location: '', beds: '', baths: '', area: '', img: '', description: '',
+  images: [] as string[],
 };
 
 export default function AdminPage() {
@@ -114,6 +118,7 @@ export default function AdminPage() {
   const [statusFilter, setStatusFilter] = useState('Todos');
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState(EMPTY_PROP);
+  const [editId, setEditId] = useState<string | null>(null);
   const [editLeadId, setEditLeadId] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -144,33 +149,75 @@ export default function AdminPage() {
     return matchSearch && matchStatus;
   });
 
-  const handleUpload = async (file: File) => {
+  const handleUpload = async (files: FileList) => {
     setUploading(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    const data = await res.json();
+    const urls: string[] = [];
+    for (const file of Array.from(files)) {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.url) urls.push(data.url);
+    }
     setUploading(false);
-    if (data.url) setForm(prev => ({ ...prev, img: data.url }));
+    if (urls.length) setForm(prev => ({ ...prev, images: [...prev.images, ...urls] }));
   };
 
-  const addProperty = async () => {
+  const removeImage = (url: string) =>
+    setForm(prev => ({ ...prev, images: prev.images.filter(u => u !== url) }));
+
+  const openNew = () => {
+    setForm(EMPTY_PROP);
+    setEditId(null);
+    setShowModal(true);
+  };
+
+  const openEdit = (p: Property) => {
+    setForm({
+      title: p.title, price: p.price, price_label: p.price_label,
+      type: p.type, property_type: p.property_type ?? (p.beds === 'Terreno' ? 'Terreno' : 'Casa'),
+      location: p.location, beds: p.beds,
+      baths: p.baths, area: p.area, img: p.img ?? '', description: p.description ?? '',
+      images: (p.images && p.images.length ? p.images : (p.img ? [p.img] : [])),
+    });
+    setEditId(p.id);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setEditId(null);
+    setForm(EMPTY_PROP);
+  };
+
+  const saveProperty = async () => {
     if (!form.title || !form.price) return;
     setSaving(true);
-    await fetch('/api/properties', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: form.title, price: form.price, price_label: form.price_label,
-        type: form.type, location: form.location, beds: form.beds,
-        baths: form.baths, area: form.area,
-        img: form.img || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
-        active: true,
-      }),
-    });
+    const isTerreno = form.property_type === 'Terreno';
+    const payload = {
+      title: form.title, price: form.price, price_label: form.price_label,
+      type: form.type, property_type: form.property_type, location: form.location,
+      beds: isTerreno ? 'Terreno' : form.beds,
+      baths: isTerreno ? 'Lote/Área' : form.baths,
+      area: form.area, description: form.description,
+      images: form.images,
+      img: form.images[0] || form.img || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+    };
+    if (editId) {
+      await fetch('/api/properties', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: editId, ...payload }),
+      });
+    } else {
+      await fetch('/api/properties', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, active: true }),
+      });
+    }
     setSaving(false);
-    setForm(EMPTY_PROP);
-    setShowModal(false);
+    closeModal();
     reloadProperties();
   };
 
@@ -221,7 +268,7 @@ export default function AdminPage() {
               <i className="ri-landscape-line" style={{ fontSize: '1rem', color: '#14301E' }}></i>
             </div>
             <div>
-              <strong style={{ display: 'block', fontSize: '0.9rem' }}>Eucalipto Imobiliária</strong>
+              <strong style={{ display: 'block', fontSize: '0.9rem' }}>Eucalipto Imobiliária e Construtora</strong>
               <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px' }}>Painel CRM</span>
             </div>
           </div>
@@ -281,7 +328,7 @@ export default function AdminPage() {
           </div>
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             {tab === 'imoveis' && (
-              <button onClick={() => setShowModal(true)} style={{ background: '#D9A441', color: '#1A2E49', border: 'none', borderRadius: '8px', padding: '0.5rem 1.1rem', fontFamily: 'inherit', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <button onClick={openNew} style={{ background: '#D9A441', color: '#1A2E49', border: 'none', borderRadius: '8px', padding: '0.5rem 1.1rem', fontFamily: 'inherit', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <i className="ri-add-line"></i> Novo Imóvel
               </button>
             )}
@@ -484,7 +531,7 @@ export default function AdminPage() {
                         <td style={{ padding: '1rem' }}>
                           <div style={{ display: 'flex', gap: '0.4rem' }}>
                             {lead.whatsapp && (
-                              <a href={`https://wa.me/55${lead.whatsapp.replace(/\D/g, '')}?text=Olá ${lead.name ?? ''}! Vi seu interesse em terrenos na Eucalipto Imobiliária.`} target="_blank" rel="noopener noreferrer" style={{ width: 30, height: 30, borderRadius: '6px', background: '#dcfce7', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem' }} title="WhatsApp">
+                              <a href={`https://wa.me/55${lead.whatsapp.replace(/\D/g, '')}?text=Olá ${lead.name ?? ''}! Vi seu interesse em terrenos na Eucalipto Imobiliária e Construtora.`} target="_blank" rel="noopener noreferrer" style={{ width: 30, height: 30, borderRadius: '6px', background: '#dcfce7', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem' }} title="WhatsApp">
                                 <i className="ri-whatsapp-line"></i>
                               </a>
                             )}
@@ -537,6 +584,9 @@ export default function AdminPage() {
                         <span><i className="ri-expand-line"></i> {p.area}</span>
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button onClick={() => openEdit(p)} style={{ flex: 1, padding: '0.45rem', borderRadius: '6px', border: 'none', background: '#1A2E49', color: '#fff', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.78rem', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem' }}>
+                          <i className="ri-edit-line"></i> Editar
+                        </button>
                         <button onClick={() => togglePropertyActive(p.id, p.active)} style={{ flex: 1, padding: '0.45rem', borderRadius: '6px', border: '1.5px solid #e0e0e0', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.78rem', fontWeight: 600, color: '#555' }}>
                           {p.active ? 'Desativar' : 'Ativar'}
                         </button>
@@ -559,61 +609,104 @@ export default function AdminPage() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
           <div style={{ background: '#fff', borderRadius: '16px', padding: '2rem', width: '100%', maxWidth: '540px', maxHeight: '90vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1A2E49' }}>Novo Imóvel</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer', color: '#666' }}>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1A2E49' }}>{editId ? 'Editar Imóvel' : 'Novo Imóvel'}</h2>
+              <button onClick={closeModal} style={{ background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer', color: '#666' }}>
                 <i className="ri-close-line"></i>
               </button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              {/* Tipo de imóvel */}
+              <div style={{ gridColumn: '1/-1' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>Tipo de imóvel</label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  {['Terreno', 'Casa', 'Apartamento'].map(pt => (
+                    <button
+                      key={pt}
+                      type="button"
+                      onClick={() => setForm(prev => ({ ...prev, property_type: pt }))}
+                      style={{
+                        flex: 1, padding: '0.55rem', borderRadius: '8px', cursor: 'pointer', fontFamily: 'inherit',
+                        fontSize: '0.82rem', fontWeight: 600,
+                        border: form.property_type === pt ? '1.5px solid #D9A441' : '1.5px solid #e0e0e0',
+                        background: form.property_type === pt ? '#fffbeb' : '#fff',
+                        color: form.property_type === pt ? '#1A2E49' : '#666',
+                      }}
+                    >
+                      {pt}
+                    </button>
+                  ))}
+                </div>
+              </div>
               {[
-                { label: 'Título *', key: 'title', full: true, placeholder: 'Ex: Apartamento no Batel' },
+                { label: 'Título *', key: 'title', full: true, placeholder: 'Ex: Terreno no Ecoville' },
                 { label: 'Preço *', key: 'price', placeholder: 'Ex: R$ 500.000' },
                 { label: 'Complemento', key: 'price_label', placeholder: '/ à vista' },
-                { label: 'Localização', key: 'location', placeholder: 'Ex: Batel – PR' },
-                { label: 'Quartos', key: 'beds', placeholder: 'Ex: 3 quartos' },
-                { label: 'Banheiros', key: 'baths', placeholder: 'Ex: 2 banheiros' },
-                { label: 'Área', key: 'area', placeholder: 'Ex: 120m²' },
+                { label: 'Localização', key: 'location', placeholder: 'Ex: Curitiba – PR' },
+                ...(form.property_type === 'Terreno' ? [] : [
+                  { label: 'Quartos', key: 'beds', placeholder: 'Ex: 3 quartos' },
+                  { label: 'Banheiros', key: 'baths', placeholder: 'Ex: 2 banheiros' },
+                ]),
+                { label: form.property_type === 'Terreno' ? 'Metragem' : 'Área', key: 'area', placeholder: form.property_type === 'Terreno' ? 'Ex: 1.200 m²' : 'Ex: 120 m²' },
               ].map(field => (
                 <div key={field.key} style={{ gridColumn: field.full ? '1/-1' : 'auto' }}>
                   <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>{field.label}</label>
-                  <input value={(form as Record<string, string>)[field.key]} onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))} placeholder={field.placeholder} style={{ width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }} />
+                  <input value={(form as unknown as Record<string, string>)[field.key]} onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))} placeholder={field.placeholder} style={{ width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }} />
                 </div>
               ))}
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>Tipo</label>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>Negociação</label>
                 <select value={form.type} onChange={e => setForm(prev => ({ ...prev, type: e.target.value as 'Venda' | 'Locação' }))} style={{ width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none' }}>
                   <option>Venda</option>
                   <option>Locação</option>
                 </select>
               </div>
 
-              {/* Upload de foto */}
+              {/* Descrição */}
               <div style={{ gridColumn: '1/-1' }}>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>Foto do Imóvel</label>
-                <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { if (e.target.files?.[0]) handleUpload(e.target.files[0]); }} />
-                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                  <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} style={{ padding: '0.6rem 1rem', borderRadius: '8px', border: '1.5px dashed #D9A441', background: '#fffbeb', color: '#1A2E49', fontFamily: 'inherit', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <i className="ri-upload-cloud-line"></i> {uploading ? 'Enviando...' : 'Fazer upload'}
-                  </button>
-                  {form.img && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={form.img} alt="preview" style={{ height: 48, width: 72, objectFit: 'cover', borderRadius: '6px', border: '1.5px solid #e0e0e0' }} />
-                  )}
-                </div>
-                {!form.img && (
-                  <input value={form.img} onChange={e => setForm(prev => ({ ...prev, img: e.target.value }))} placeholder="Ou cole uma URL de imagem..." style={{ marginTop: '0.5rem', width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }} />
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>Descrição</label>
+                <textarea
+                  value={form.description}
+                  onChange={e => setForm(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Descreva o imóvel: características, diferenciais, documentação, potencial..."
+                  rows={4}
+                  style={{ width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box', resize: 'vertical' }}
+                />
+              </div>
+
+              {/* Upload de fotos (várias) */}
+              <div style={{ gridColumn: '1/-1' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>
+                  Fotos do Imóvel <span style={{ fontWeight: 400, color: '#888' }}>(a 1ª é a capa)</span>
+                </label>
+                <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={e => { if (e.target.files?.length) handleUpload(e.target.files); e.target.value = ''; }} />
+                <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} style={{ padding: '0.6rem 1rem', borderRadius: '8px', border: '1.5px dashed #D9A441', background: '#fffbeb', color: '#1A2E49', fontFamily: 'inherit', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <i className="ri-upload-cloud-line"></i> {uploading ? 'Enviando...' : 'Adicionar fotos'}
+                </button>
+                {form.images.length > 0 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
+                    {form.images.map((url, i) => (
+                      <div key={url} style={{ position: 'relative' }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={url} alt={`Foto ${i + 1}`} style={{ height: 64, width: 88, objectFit: 'cover', borderRadius: '6px', border: i === 0 ? '2px solid #D9A441' : '1.5px solid #e0e0e0' }} />
+                        {i === 0 && <span style={{ position: 'absolute', bottom: 2, left: 2, background: '#D9A441', color: '#1A2E49', fontSize: '0.6rem', fontWeight: 700, padding: '0 0.3rem', borderRadius: '3px' }}>CAPA</span>}
+                        <button type="button" onClick={() => removeImage(url)} title="Remover" style={{ position: 'absolute', top: -6, right: -6, width: 20, height: 20, borderRadius: '50%', background: '#ef4444', color: '#fff', border: '2px solid #fff', cursor: 'pointer', fontSize: '0.7rem', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, lineHeight: 1 }}>
+                          <i className="ri-close-line"></i>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
 
             <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem' }}>
-              <button onClick={() => setShowModal(false)} style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: '1.5px solid #e0e0e0', background: 'transparent', fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', color: '#555' }}>
+              <button onClick={closeModal} style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: '1.5px solid #e0e0e0', background: 'transparent', fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', color: '#555' }}>
                 Cancelar
               </button>
-              <button onClick={addProperty} disabled={!form.title || !form.price || saving || uploading} style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: 'none', background: '#D9A441', color: '#1A2E49', fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', opacity: (!form.title || !form.price || saving || uploading) ? 0.5 : 1 }}>
-                <i className="ri-add-line"></i> {saving ? 'Salvando...' : 'Adicionar Imóvel'}
+              <button onClick={saveProperty} disabled={!form.title || !form.price || saving || uploading} style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: 'none', background: '#D9A441', color: '#1A2E49', fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', opacity: (!form.title || !form.price || saving || uploading) ? 0.5 : 1 }}>
+                <i className={editId ? 'ri-save-line' : 'ri-add-line'}></i> {saving ? 'Salvando...' : (editId ? 'Salvar alterações' : 'Adicionar Imóvel')}
               </button>
             </div>
           </div>

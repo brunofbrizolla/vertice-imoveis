@@ -3,7 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase';
 import Link from 'next/link';
 import PropertyGallery from '@/components/PropertyGallery';
 
-const WHATSAPP = '5541984321567';
+const WHATSAPP = '5541995417539';
 
 async function getProperty(id: string) {
   const { data } = await supabaseAdmin
@@ -19,14 +19,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const property = await getProperty(id);
 
   if (!property) {
-    return { title: 'Oportunidade não encontrada – Eucalipto Imobiliária' };
+    return { title: 'Oportunidade não encontrada – Eucalipto Imobiliária e Construtora' };
   }
 
-  const isLand = property.beds === 'Terreno';
-  const title = `${property.title} – Eucalipto Imobiliária`;
+  const isLand = property.property_type === 'Terreno' || property.beds === 'Terreno';
+  const title = `${property.title} – Eucalipto Imobiliária e Construtora`;
   const description = isLand
-    ? `${property.title} em ${property.location} · ${property.area} · ${property.price}. Oportunidade de investimento em terreno selecionada pela Eucalipto Imobiliária.`
-    : `${property.title} em ${property.location} · ${property.price}. Conheça este imóvel na Eucalipto Imobiliária.`;
+    ? `${property.title} em ${property.location} · ${property.area} · ${property.price}. Oportunidade de investimento em terreno selecionada pela Eucalipto Imobiliária e Construtora.`
+    : `${property.title} em ${property.location} · ${property.price}. Conheça este imóvel na Eucalipto Imobiliária e Construtora.`;
 
   return {
     title,
@@ -69,7 +69,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     );
   }
 
-  const isLand = property.beds === 'Terreno';
+  const isLand = property.property_type === 'Terreno' || property.beds === 'Terreno';
 
   const specs = isLand
     ? [
@@ -112,7 +112,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
         <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
           <div style={{ height: '50vh', minHeight: '400px', position: 'relative' }}>
-            <PropertyGallery images={[property.img].filter(Boolean)} />
+            <PropertyGallery images={((property.images && property.images.length ? property.images : [property.img]) as string[]).filter(Boolean)} />
             <div style={{ position: 'absolute', top: '1rem', left: '1rem', background: '#C9A35B', color: '#14301E', padding: '0.4rem 1rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', zIndex: 10 }}>
               {isLand ? 'Oportunidade' : property.type}
             </div>
@@ -145,7 +145,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                 <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.4rem', fontWeight: 700, color: '#14301E', marginBottom: '1rem' }}>
                   {isLand ? 'Sobre esta oportunidade' : 'Descrição'}
                 </h2>
-                {isLand ? (
+                {property.description ? (
+                  <p style={{ color: '#555', lineHeight: 1.8, fontSize: '0.97rem', whiteSpace: 'pre-line' }}>
+                    {property.description}
+                  </p>
+                ) : isLand ? (
                   <>
                     <p style={{ color: '#555', lineHeight: 1.8, fontSize: '0.97rem' }}>
                       Terreno de {property.area} em {property.location}, selecionado pela curadoria da Eucalipto por

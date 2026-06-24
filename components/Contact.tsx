@@ -3,7 +3,7 @@ export default function Contact() {
         <section className="contact" id="contato">
             <div className="contact-inner">
                 <div className="contact-info">
-                    <h2>Fale com a Eucalipto Imobiliária</h2>
+                    <h2>Fale com a Eucalipto Imobiliária e Construtora</h2>
                     <p>
                         Conte para nós o seu perfil de investimento. Nossa equipe seleciona terrenos com o melhor
                         potencial de valorização e conduz cada negócio com total segurança patrimonial.
@@ -12,14 +12,14 @@ export default function Contact() {
                         <div className="contact-item-icon"><i className="ri-map-pin-line"></i></div>
                         <div>
                             <strong>Endereço</strong>
-                            <span>Av. do Batel, 1400 – Batel – PR</span>
+                            <span>Rua João Barwik, 151 – Cachoeira, Curitiba/PR · 82220-422</span>
                         </div>
                     </div>
                     <div className="contact-item">
                         <div className="contact-item-icon"><i className="ri-phone-line"></i></div>
                         <div>
                             <strong>Telefone / WhatsApp</strong>
-                            <span>(41) 9 8432-1567</span>
+                            <span>(41) 99541-7539</span>
                         </div>
                     </div>
                     <div className="contact-item">

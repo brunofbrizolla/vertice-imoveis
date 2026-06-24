@@ -7,7 +7,7 @@ const metrics = [
 
 export default function Metrics() {
     return (
-        <section className="metrics" aria-label="Indicadores da Eucalipto Imobiliária">
+        <section className="metrics" aria-label="Indicadores da Eucalipto Imobiliária e Construtora">
             <div className="metrics-inner">
                 {metrics.map((m) => (
                     <div className="metric" key={m.label}>

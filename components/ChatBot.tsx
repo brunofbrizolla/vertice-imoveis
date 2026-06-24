@@ -32,7 +32,7 @@ const QUICK_ACTIONS = [
 const CASUAL_GREETING: Message = {
   role: 'assistant',
   content:
-    'Olá! Seja bem-vindo à Eucalipto Imobiliária! 🌿 Sou a Eucalipto, sua consultora virtual.\n\nComo posso te ajudar hoje?',
+    'Olá! Seja bem-vindo à Eucalipto Imobiliária e Construtora! 🌿 Sou a Eucalipto, sua consultora virtual.\n\nComo posso te ajudar hoje?',
 };
 
 function parseResponse(raw: string, allProps: Property[]): { text: string; properties: Property[]; options: string[] } {
@@ -290,7 +290,7 @@ export default function ChatBot() {
                                     <i className="ri-eye-line"></i> Ver imóvel
                                   </a>
                                   <a
-                                    href={`https://wa.me/5541984321567?text=Tenho interesse no imóvel: ${encodeURIComponent(p.title)}`}
+                                    href={`https://wa.me/5541995417539?text=Tenho interesse no imóvel: ${encodeURIComponent(p.title)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="chat-prop-btn"

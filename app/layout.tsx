@@ -5,14 +5,14 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://eucaliptoimobiliar
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Eucalipto Imobiliária – Terrenos premium para investidores",
+  title: "Eucalipto Imobiliária e Construtora – Terrenos premium para investidores",
   description:
-    "Eucalipto Imobiliária - Curadoria de terrenos acima de 650 m² e R$ 2 milhões para grandes investidores. Oportunidades selecionadas com foco em valorização e segurança patrimonial.",
+    "Eucalipto Imobiliária e Construtora - Curadoria de terrenos acima de 650 m² e R$ 2 milhões para grandes investidores. Oportunidades selecionadas com foco em valorização e segurança patrimonial.",
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    siteName: "Eucalipto Imobiliária",
-    title: "Eucalipto Imobiliária – Terrenos premium para investidores",
+    siteName: "Eucalipto Imobiliária e Construtora",
+    title: "Eucalipto Imobiliária e Construtora – Terrenos premium para investidores",
     description:
       "Curadoria de terrenos acima de 650 m² e R$ 2 milhões para grandes investidores, com foco em valorização e segurança patrimonial.",
   },

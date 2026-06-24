@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import LogoSVG from "./LogoSVG";
 import Link from 'next/link';
 
 const LINKS = [
@@ -21,11 +20,12 @@ export default function Navbar() {
             <div className="header-inner">
                 <Link href="/" className="logo">
                     <div className="logo-icon">
-                        <LogoSVG size={38} />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/logo-emblem.webp?v=4" alt="Eucalipto Imobiliária e Construtora" />
                     </div>
                     <div className="logo-text">
                         <strong>Eucalipto</strong>
-                        <span>Imobiliária</span>
+                        <span>Imobiliária e Construtora</span>
                     </div>
                 </Link>
                 <nav>

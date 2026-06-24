@@ -17,6 +17,12 @@ const testimonials = [
         name: "Mariana Costa",
         role: "Investidora – Banco de terras",
     },
+    {
+        text: "\"Adquirimos uma grande área para incorporação com a documentação 100% regularizada. Processo transparente, ágil e com acompanhamento próximo em cada etapa.\"",
+        avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+        name: "Fernanda Albuquerque",
+        role: "Incorporadora – Grandes áreas",
+    },
 ];
 
 export default function Testimonials() {

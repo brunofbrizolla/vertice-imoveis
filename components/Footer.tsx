@@ -1,5 +1,3 @@
-import LogoSVG from "./LogoSVG";
-
 export default function Footer() {
     return (
         <footer>
@@ -7,11 +5,12 @@ export default function Footer() {
                 <div className="footer-brand">
                     <div className="logo">
                         <div className="logo-icon">
-                            <LogoSVG size={38} />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src="/logo-emblem.webp?v=4" alt="Eucalipto Imobiliária e Construtora" />
                         </div>
                         <div className="logo-text" style={{ color: "#fff" }}>
                             <strong>Eucalipto</strong>
-                            <span>Imobiliária</span>
+                            <span>Imobiliária e Construtora</span>
                         </div>
                     </div>
                     <p>
@@ -48,11 +47,11 @@ export default function Footer() {
                     <h4>Contato</h4>
                     <div className="footer-contact-item">
                         <i className="ri-map-pin-line"></i>
-                        <span>Av. do Batel, 1400 – Batel – PR</span>
+                        <span>Rua João Barwik, 151 – Cachoeira, Curitiba/PR</span>
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-phone-line"></i>
-                        <span>(41) 9 8432-1567</span>
+                        <span>(41) 99541-7539</span>
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-mail-line"></i>
@@ -65,7 +64,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                © {new Date().getFullYear()} Eucalipto Imobiliária. Todos os direitos reservados. |{" "}
+                © {new Date().getFullYear()} Eucalipto Imobiliária e Construtora. Todos os direitos reservados. |{" "}
                 <span className="creci">CRECI 00000-J</span>
             </div>
         </footer>

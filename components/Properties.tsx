@@ -27,6 +27,9 @@ export default async function Properties() {
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={p.img} alt={p.title} />
                                 <span className={`prop-badge${p.type === 'Locação' ? " green" : ""}`}>{p.type}</span>
+                                {p.property_type && (
+                                    <span style={{ position: 'absolute', top: '2.6rem', left: '.75rem', background: 'rgba(20,48,30,.92)', color: '#fff', padding: '.25rem .7rem', borderRadius: '6px', fontSize: '.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.5px' }}>{p.property_type}</span>
+                                )}
                                 <div className="prop-fav"><i className="ri-heart-line"></i></div>
                             </div>
                             <div className="prop-body">

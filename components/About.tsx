@@ -6,8 +6,8 @@ export default function About() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         className="about-img"
-                        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
-                        alt="Equipe Eucalipto Imobiliária"
+                        src="/logo-full.webp"
+                        alt="Eucalipto Imobiliária e Construtora"
                     />
                     <div className="about-years">
                         <strong>10+</strong>
@@ -18,7 +18,7 @@ export default function About() {
                     <div className="section-tag"><i className="ri-information-line"></i> Sobre a Eucalipto</div>
                     <p className="section-title">Mais de uma Década Selecionando Terrenos de Alto Potencial</p>
                     <p className="section-sub">
-                        A Eucalipto Imobiliária é especializada em terrenos premium para investidores. Desde 2013,
+                        A Eucalipto Imobiliária e Construtora é especializada em terrenos premium para investidores. Desde 2013,
                         unimos análise de mercado, curadoria criteriosa e segurança jurídica em cada negócio.
                     </p>
                     <p className="section-sub" style={{ marginTop: ".75rem" }}>
