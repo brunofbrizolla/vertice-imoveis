@@ -1,8 +1,13 @@
 const fs = require('fs');
 const { Client } = require('pg');
 
+if (!process.env.DATABASE_URL) {
+  console.error('Defina a variável de ambiente DATABASE_URL. Ex.: DATABASE_URL="postgresql://..." node run_migration.js');
+  process.exit(1);
+}
+
 const client = new Client({
-  connectionString: 'postgresql://postgres:imob123.,12@db.bvgwpbjjxkunsklboosn.supabase.co:5432/postgres'
+  connectionString: process.env.DATABASE_URL,
 });
 
 async function run() {

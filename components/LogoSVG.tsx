@@ -17,17 +17,17 @@ export default function LogoSVG({ size = 22 }: { size?: number }) {
                     <stop offset="100%" stopColor="#F0C060" />
                 </linearGradient>
 
-                {/* Navy 3D gradient */}
+                {/* Forest 3D gradient */}
                 <linearGradient id="navyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#3A6090" />
-                    <stop offset="50%" stopColor="#1A2E49" />
-                    <stop offset="100%" stopColor="#0D1E30" />
+                    <stop offset="0%" stopColor="#3A6B47" />
+                    <stop offset="50%" stopColor="#14301E" />
+                    <stop offset="100%" stopColor="#0E2417" />
                 </linearGradient>
 
                 {/* Side face of house (3D depth) */}
                 <linearGradient id="sideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#0D1E30" />
-                    <stop offset="100%" stopColor="#1A2E49" />
+                    <stop offset="0%" stopColor="#0E2417" />
+                    <stop offset="100%" stopColor="#14301E" />
                 </linearGradient>
 
                 {/* Drop shadow filter */}

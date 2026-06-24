@@ -217,11 +217,11 @@ export default function AdminPage() {
       <aside style={{ width: '240px', background: '#1A2E49', color: '#fff', display: 'flex', flexDirection: 'column', padding: '0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh' }}>
         <div style={{ padding: '1.5rem 1.25rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: 32, height: 32, background: '#D9A441', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <i className="ri-building-4-line" style={{ fontSize: '1rem', color: '#1A2E49' }}></i>
+            <div style={{ width: 32, height: 32, background: '#C9A35B', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <i className="ri-landscape-line" style={{ fontSize: '1rem', color: '#14301E' }}></i>
             </div>
             <div>
-              <strong style={{ display: 'block', fontSize: '0.9rem' }}>Vértice Imóveis</strong>
+              <strong style={{ display: 'block', fontSize: '0.9rem' }}>Eucalipto Imobiliária</strong>
               <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px' }}>Painel CRM</span>
             </div>
           </div>
@@ -484,7 +484,7 @@ export default function AdminPage() {
                         <td style={{ padding: '1rem' }}>
                           <div style={{ display: 'flex', gap: '0.4rem' }}>
                             {lead.whatsapp && (
-                              <a href={`https://wa.me/55${lead.whatsapp.replace(/\D/g, '')}?text=Olá ${lead.name ?? ''}! Vi seu interesse em imóveis na Vértice.`} target="_blank" rel="noopener noreferrer" style={{ width: 30, height: 30, borderRadius: '6px', background: '#dcfce7', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem' }} title="WhatsApp">
+                              <a href={`https://wa.me/55${lead.whatsapp.replace(/\D/g, '')}?text=Olá ${lead.name ?? ''}! Vi seu interesse em terrenos na Eucalipto Imobiliária.`} target="_blank" rel="noopener noreferrer" style={{ width: 30, height: 30, borderRadius: '6px', background: '#dcfce7', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem' }} title="WhatsApp">
                                 <i className="ri-whatsapp-line"></i>
                               </a>
                             )}

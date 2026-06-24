@@ -14,11 +14,11 @@ export default async function Properties() {
             <div className="properties-inner">
                 <div className="props-header">
                     <div>
-                        <div className="section-tag"><i className="ri-building-line"></i> Nosso Portfólio</div>
-                        <p className="section-title">Imóveis em Destaque</p>
-                        <p className="section-sub">Selecionamos os melhores imóveis da região para você.</p>
+                        <div className="section-tag"><i className="ri-landscape-line"></i> Curadoria Eucalipto</div>
+                        <p className="section-title">Oportunidades em Destaque</p>
+                        <p className="section-sub">Terrenos selecionados com forte potencial de valorização.</p>
                     </div>
-                    <a className="view-all" href="#">Ver todos os imóveis <i className="ri-arrow-right-line"></i></a>
+                    <Link className="view-all" href="/terrenos">Ver todas as oportunidades <i className="ri-arrow-right-line"></i></Link>
                 </div>
                 <div className="props-grid">
                     {properties?.map((p) => (

@@ -1,58 +1,78 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
-const VIDEOS = [
-    '/video/video 1.mp4',
-    '/video/video 2.mp4',
+const STATS = [
+    { num: "650 m²+", label: "Metragem mínima por ativo" },
+    { num: "R$ 2 mi+", label: "Ticket por oportunidade" },
+    { num: "CRECI", label: "Registrado e regularizado" },
 ];
 
-export default function Hero() {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const indexRef = useRef(0);
+const HERO_IMG = "/hero.webp";
 
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-        const playNext = () => {
-            indexRef.current = (indexRef.current + 1) % VIDEOS.length;
-            video.src = VIDEOS[indexRef.current];
-            video.play();
-        };
-        video.addEventListener('ended', playNext);
-        return () => video.removeEventListener('ended', playNext);
-    }, []);
+export default function Hero() {
+    const reduce = useReducedMotion();
+
+    const container: Variants = {
+        hidden: {},
+        show: {
+            transition: { staggerChildren: reduce ? 0 : 0.14, delayChildren: reduce ? 0 : 0.1 },
+        },
+    };
+
+    // 'hidden' must be identical on server and client to avoid hydration mismatch,
+    // so it can't depend on `reduce` (which is false on the server). For reduced
+    // motion we instead snap to 'show' instantly via a zero-duration transition.
+    const item: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: reduce ? 0 : 0.7, ease: [0.22, 0.61, 0.36, 1] },
+        },
+    };
 
     return (
         <section className="hero" id="inicio">
-            <video
-                ref={videoRef}
-                className="hero-video"
-                autoPlay
-                muted
-                playsInline
-                src={VIDEOS[0]}
-                poster="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80"
-            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hero-bg" src={HERO_IMG} alt="" aria-hidden="true" />
             <div className="hero-overlay"></div>
-            <div className="hero-content hero-content--center">
-                <h1 className="hero-title">
-                    Encontre o imóvel ideal com<br />
-                    <span className="hero-title-gold">segurança e confiança</span>
-                </h1>
-                <p className="hero-sub">
-                    Venda, compra e locação de imóveis residenciais e comerciais com mais
-                    <br />de 10 anos de experiência no mercado
-                </p>
-                <div className="hero-actions hero-actions--center">
+            <motion.div className="hero-content" variants={container} initial="hidden" animate="show">
+                <motion.div className="hero-badge" variants={item}>
+                    <i className="ri-seedling-line"></i> Curadoria de terrenos para investidores
+                </motion.div>
+                <motion.h1 className="hero-title" variants={item}>
+                    Terrenos premium que
+                    <span className="hero-title-gold">valorizam seu capital</span>
+                </motion.h1>
+                <motion.p className="hero-sub" variants={item}>
+                    Oportunidades selecionadas acima de 650 m² e R$ 2 milhões, com foco em
+                    valorização, segurança patrimonial e potencial de retorno.
+                </motion.p>
+                <motion.div className="hero-actions" variants={item}>
                     <a className="btn-primary" href="#imoveis">
-                        <i className="ri-search-line"></i> Buscar Imóveis
+                        <i className="ri-landscape-line"></i> Veja as oportunidades
                     </a>
-                    <a className="btn-ghost" href="#contato">
-                        <i className="ri-user-line"></i> Fale com um Corretor
-                    </a>
-                </div>
-            </div>
+                    <button
+                        type="button"
+                        className="btn-ghost"
+                        onClick={() => window.dispatchEvent(new Event('open-specialist'))}
+                    >
+                        <i className="ri-user-star-line"></i> Fale com um especialista
+                    </button>
+                </motion.div>
+                <motion.div className="hero-stats" variants={item}>
+                    {STATS.map((s) => (
+                        <div className="stat" key={s.label}>
+                            <div className="stat-num">{s.num}</div>
+                            <div className="stat-label">{s.label}</div>
+                        </div>
+                    ))}
+                </motion.div>
+            </motion.div>
+            <a className="hero-scroll" href="#imoveis" aria-label="Rolar para as oportunidades">
+                <i className="ri-arrow-down-line"></i>
+            </a>
         </section>
     );
 }

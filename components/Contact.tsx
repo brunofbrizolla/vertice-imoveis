@@ -3,10 +3,10 @@ export default function Contact() {
         <section className="contact" id="contato">
             <div className="contact-inner">
                 <div className="contact-info">
-                    <h2>Fale com a Vértice Imóveis</h2>
+                    <h2>Fale com a Eucalipto Imobiliária</h2>
                     <p>
-                        Estamos prontos para ajudar você a encontrar o imóvel dos seus sonhos ou realizar o melhor
-                        negócio. Entre em contato pelo formulário ou pelos nossos canais diretos.
+                        Conte para nós o seu perfil de investimento. Nossa equipe seleciona terrenos com o melhor
+                        potencial de valorização e conduz cada negócio com total segurança patrimonial.
                     </p>
                     <div className="contact-item">
                         <div className="contact-item-icon"><i className="ri-map-pin-line"></i></div>
@@ -26,7 +26,7 @@ export default function Contact() {
                         <div className="contact-item-icon"><i className="ri-mail-line"></i></div>
                         <div>
                             <strong>E-mail</strong>
-                            <span>contato@verticeimoveis.com.br</span>
+                            <span>contato@eucaliptoimobiliaria.com.br</span>
                         </div>
                     </div>
                     <div className="contact-item">
@@ -54,15 +54,15 @@ export default function Contact() {
                         <div className="form-field">
                             <label>Interesse</label>
                             <select>
-                                <option>Comprar</option>
-                                <option>Alugar</option>
-                                <option>Vender</option>
-                                <option>Avaliar imóvel</option>
+                                <option>Comprar terreno</option>
+                                <option>Vender terreno</option>
+                                <option>Curadoria de oportunidades</option>
+                                <option>Avaliação patrimonial</option>
                             </select>
                         </div>
                         <div className="form-field full">
                             <label>Mensagem</label>
-                            <textarea rows={4} placeholder="Descreva o imóvel que você procura ou sua necessidade..."></textarea>
+                            <textarea rows={4} placeholder="Descreva o perfil de investimento ou o terreno que você procura..."></textarea>
                         </div>
                     </div>
                     <button className="btn-submit">

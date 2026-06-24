@@ -1,21 +1,21 @@
 const testimonials = [
     {
-        text: "\"A Vértice foi incrível durante todo o processo de compra do meu apartamento. Atendimento impecável e transparência total. Recomendo de olhos fechados!\"",
-        avatar: "https://randomuser.me/api/portraits/women/32.jpg",
-        name: "Ana Paula Ferreira",
-        role: "Compradora – Batel",
+        text: "\"A curadoria da Eucalipto foi certeira. Adquiri um terreno com excelente potencial e a valorização superou minhas expectativas. Assessoria impecável.\"",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        name: "Ricardo Menezes",
+        role: "Investidor – Portfólio de terrenos",
     },
     {
-        text: "\"Vendi meu imóvel em tempo recorde e pelo melhor preço do mercado. A equipe da Vértice domina o mercado imobiliário como ninguém.\"",
+        text: "\"Profissionalismo do início ao fim. Análise de mercado sólida e total segurança jurídica na escritura. É o parceiro que todo investidor precisa.\"",
         avatar: "https://randomuser.me/api/portraits/men/44.jpg",
         name: "Carlos Eduardo Lima",
-        role: "Vendedor – Água Verde",
+        role: "Investidor – Lotes comerciais",
     },
     {
-        text: "\"Conseguiram encontrar o apartamento perfeito para mim em menos de 2 semanas. Processo rápido, seguro e sem dor de cabeça. Estou muito satisfeita!\"",
+        text: "\"Eles entenderam exatamente o meu perfil e trouxeram oportunidades que eu não encontraria sozinha. Negócio seguro e rentável.\"",
         avatar: "https://randomuser.me/api/portraits/women/68.jpg",
         name: "Mariana Costa",
-        role: "Locatária – Centro",
+        role: "Investidora – Banco de terras",
     },
 ];
 
@@ -27,8 +27,8 @@ export default function Testimonials() {
                     <div className="section-tag" style={{ display: "inline-flex" }}>
                         <i className="ri-chat-quote-line"></i> Depoimentos
                     </div>
-                    <p className="section-title">O que Nossos Clientes Dizem</p>
-                    <p className="section-sub">A satisfação de quem confiou em nós é o nosso maior prêmio.</p>
+                    <p className="section-title">O que Nossos Investidores Dizem</p>
+                    <p className="section-sub">A confiança de quem investe com a gente é o nosso maior patrimônio.</p>
                 </div>
                 <div className="testi-grid">
                     {testimonials.map((t) => (

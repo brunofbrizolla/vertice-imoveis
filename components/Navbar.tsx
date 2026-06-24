@@ -1,28 +1,58 @@
+'use client';
+
+import { useState } from 'react';
 import LogoSVG from "./LogoSVG";
+import Link from 'next/link';
+
+const LINKS = [
+    { href: "/#inicio", label: "Início" },
+    { href: "/#imoveis", label: "Oportunidades" },
+    { href: "/terrenos", label: "Terrenos" },
+    { href: "/#sobre", label: "Sobre" },
+    { href: "/#depoimentos", label: "Depoimentos" },
+    { href: "/#contato", label: "Contato" },
+];
 
 export default function Navbar() {
+    const [open, setOpen] = useState(false);
+
     return (
         <header>
             <div className="header-inner">
-                <div className="logo">
+                <Link href="/" className="logo">
                     <div className="logo-icon">
                         <LogoSVG size={38} />
                     </div>
                     <div className="logo-text">
-                        <strong>Vértice Imóveis</strong>
-                        <span>CRECI 12345</span>
+                        <strong>Eucalipto</strong>
+                        <span>Imobiliária</span>
                     </div>
-                </div>
+                </Link>
                 <nav>
-                    <a href="#inicio">Início</a>
-                    <a href="#imoveis">Imóveis</a>
-                    <a href="#sobre">Sobre</a>
-                    <a href="#depoimentos">Depoimentos</a>
-                    <a href="#contato">Contato</a>
+                    {LINKS.map((l) => (
+                        <Link key={l.href} href={l.href}>{l.label}</Link>
+                    ))}
                 </nav>
                 <div className="header-cta">
                     <a className="btn-gold" href="#contato">Fale Conosco</a>
                 </div>
+                <button
+                    className="nav-toggle"
+                    aria-label={open ? "Fechar menu" : "Abrir menu"}
+                    aria-expanded={open}
+                    onClick={() => setOpen((v) => !v)}
+                >
+                    <i className={open ? "ri-close-line" : "ri-menu-line"}></i>
+                </button>
+            </div>
+
+            <div className={`nav-mobile${open ? " open" : ""}`}>
+                {LINKS.map((l) => (
+                    <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</Link>
+                ))}
+                <a className="btn-gold nav-mobile-cta" href="#contato" onClick={() => setOpen(false)}>
+                    Fale Conosco
+                </a>
             </div>
         </header>
     );

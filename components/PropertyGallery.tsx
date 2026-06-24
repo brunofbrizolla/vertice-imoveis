@@ -25,7 +25,7 @@ export default function PropertyGallery({ images }: { images: string[] }) {
                         onMouseOver={(e) => e.currentTarget.style.background = '#fff'}
                         onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.9)'}
                     >
-                        <i className="ri-arrow-left-s-line" style={{ fontSize: '1.8rem', color: '#1A2E49' }}></i>
+                        <i className="ri-arrow-left-s-line" style={{ fontSize: '1.8rem', color: '#14301E' }}></i>
                     </button>
                     <button 
                         onClick={nextSlide}
@@ -33,14 +33,14 @@ export default function PropertyGallery({ images }: { images: string[] }) {
                         onMouseOver={(e) => e.currentTarget.style.background = '#fff'}
                         onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.9)'}
                     >
-                        <i className="ri-arrow-right-s-line" style={{ fontSize: '1.8rem', color: '#1A2E49' }}></i>
+                        <i className="ri-arrow-right-s-line" style={{ fontSize: '1.8rem', color: '#14301E' }}></i>
                     </button>
                     <div style={{ position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '0.6rem', zIndex: 10 }}>
                         {images.map((_, idx) => (
                             <button 
                                 key={idx} 
                                 onClick={() => setCurrentIndex(idx)}
-                                style={{ width: idx === currentIndex ? '24px' : '8px', height: '8px', borderRadius: '8px', background: idx === currentIndex ? '#D9A441' : 'rgba(255,255,255,0.7)', transition: 'all 0.3s', border: 'none', padding: 0, cursor: 'pointer' }} 
+                                style={{ width: idx === currentIndex ? '24px' : '8px', height: '8px', borderRadius: '8px', background: idx === currentIndex ? '#C9A35B' : 'rgba(255,255,255,0.7)', transition: 'all 0.3s', border: 'none', padding: 0, cursor: 'pointer' }} 
                                 aria-label={`Ir para foto ${idx + 1}`}
                             />
                         ))}

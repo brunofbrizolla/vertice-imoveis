@@ -1,10 +1,10 @@
 export default function Features() {
     const features = [
-        { icon: "ri-shield-check-line", title: "Segurança Jurídica", desc: "Toda documentação analisada e processos realizados com total segurança e transparência legal." },
-        { icon: "ri-time-line", title: "Atendimento Ágil", desc: "Equipe altamente qualificada disponível 7 dias por semana para atender suas necessidades." },
-        { icon: "ri-map-pin-line", title: "Conhecimento Local", desc: "Profundo conhecimento do mercado imobiliário regional e das melhores oportunidades da região." },
-        { icon: "ri-hand-heart-line", title: "Atendimento Personalizado", desc: "Entendemos suas necessidades e encontramos o imóvel ideal para seu perfil e orçamento." },
-        { icon: "ri-bank-line", title: "Financiamento Facilitado", desc: "Parcerias com os principais bancos para oferecer as melhores taxas de financiamento." },
+        { icon: "ri-search-eye-line", title: "Curadoria Criteriosa", desc: "Cada terreno passa por uma seleção rigorosa: localização, metragem e potencial real de valorização." },
+        { icon: "ri-line-chart-line", title: "Análise de Valorização", desc: "Avaliamos vetores de crescimento, infraestrutura e mercado para projetar o retorno do investimento." },
+        { icon: "ri-shield-check-line", title: "Segurança Jurídica", desc: "Documentação e due diligence completas, com total transparência em cada etapa da negociação." },
+        { icon: "ri-lock-2-line", title: "Confidencialidade", desc: "Discrição total na condução de oportunidades e nas negociações de alto valor." },
+        { icon: "ri-user-star-line", title: "Assessoria Dedicada", desc: "Um especialista acompanha você da análise da oportunidade ao registro da escritura." },
     ];
 
     return (
@@ -12,10 +12,10 @@ export default function Features() {
             <div className="features-inner">
                 <div className="text-center" style={{ marginBottom: 0 }}>
                     <div className="section-tag" style={{ display: "inline-flex" }}>
-                        <i className="ri-star-line"></i> Por que nos escolher
+                        <i className="ri-star-line"></i> Por que investir com a Eucalipto
                     </div>
-                    <p className="section-title">Experiência que Transforma</p>
-                    <p className="section-sub">Oferecemos muito mais do que imóveis – oferecemos a realização do seu sonho.</p>
+                    <p className="section-title">Inteligência que Protege seu Capital</p>
+                    <p className="section-sub">Mais do que terrenos — entregamos análise, segurança e oportunidades com real potencial de retorno.</p>
                 </div>
                 <div className="features-grid">
                     {features.map((f) => (

@@ -10,13 +10,13 @@ export default function Footer() {
                             <LogoSVG size={38} />
                         </div>
                         <div className="logo-text" style={{ color: "#fff" }}>
-                            <strong>Vértice Imóveis</strong>
-                            <span>CRECI 12345</span>
+                            <strong>Eucalipto</strong>
+                            <span>Imobiliária</span>
                         </div>
                     </div>
                     <p>
-                        Há mais de 10 anos conectando pessoas aos seus lares. Especialistas em compra,
-                        venda e locação de imóveis residenciais e comerciais.
+                        Curadoria de terrenos premium para grandes investidores. Oportunidades
+                        selecionadas com foco em valorização e segurança patrimonial.
                     </p>
                     <div className="footer-socials">
                         <a className="social-btn fb" href="#"><i className="ri-facebook-fill"></i></a>
@@ -37,11 +37,11 @@ export default function Footer() {
                 <div className="footer-col">
                     <h4>Serviços</h4>
                     <ul>
-                        <li><a href="#">Compra de Imóveis</a></li>
-                        <li><a href="#">Venda de Imóveis</a></li>
-                        <li><a href="#">Locação</a></li>
-                        <li><a href="#">Avaliação Gratuita</a></li>
-                        <li><a href="#">Financiamento</a></li>
+                        <li><a href="#imoveis">Compra de Terrenos</a></li>
+                        <li><a href="#imoveis">Venda de Terrenos</a></li>
+                        <li><a href="#imoveis">Curadoria de Oportunidades</a></li>
+                        <li><a href="#contato">Avaliação Patrimonial</a></li>
+                        <li><a href="#contato">Assessoria a Investidores</a></li>
                     </ul>
                 </div>
                 <div className="footer-col">
@@ -56,7 +56,7 @@ export default function Footer() {
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-mail-line"></i>
-                        <span>contato@verticeimoveis.com.br</span>
+                        <span>contato@eucaliptoimobiliaria.com.br</span>
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-time-line"></i>
@@ -65,8 +65,8 @@ export default function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                © {new Date().getFullYear()} Vértice Imóveis. Todos os direitos reservados. |{" "}
-                <span className="creci">CRECI 12345</span>
+                © {new Date().getFullYear()} Eucalipto Imobiliária. Todos os direitos reservados. |{" "}
+                <span className="creci">CRECI 00000-J</span>
             </div>
         </footer>
     );

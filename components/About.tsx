@@ -7,7 +7,7 @@ export default function About() {
                     <img
                         className="about-img"
                         src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
-                        alt="Equipe Vértice Imóveis"
+                        alt="Equipe Eucalipto Imobiliária"
                     />
                     <div className="about-years">
                         <strong>10+</strong>
@@ -15,18 +15,18 @@ export default function About() {
                     </div>
                 </div>
                 <div className="about-content">
-                    <div className="section-tag"><i className="ri-information-line"></i> Sobre a Vértice</div>
-                    <p className="section-title">Conectando Pessoas a Seus Lares há Mais de uma Década</p>
+                    <div className="section-tag"><i className="ri-information-line"></i> Sobre a Eucalipto</div>
+                    <p className="section-title">Mais de uma Década Selecionando Terrenos de Alto Potencial</p>
                     <p className="section-sub">
-                        A Vértice Imóveis nasceu da paixão por transformar sonhos em realidade. Desde 2013, atuamos
-                        no mercado imobiliário regional com profissionalismo, ética e dedicação.
+                        A Eucalipto Imobiliária é especializada em terrenos premium para investidores. Desde 2013,
+                        unimos análise de mercado, curadoria criteriosa e segurança jurídica em cada negócio.
                     </p>
                     <p className="section-sub" style={{ marginTop: ".75rem" }}>
-                        Nossa equipe de corretores experientes e especializados está pronta para guiar você em cada
-                        etapa — da busca ao registro do imóvel.
+                        Nossa equipe identifica oportunidades acima de 650 m² com forte potencial de valorização e
+                        acompanha o investidor da análise ao registro da escritura.
                     </p>
                     <div className="about-list">
-                        {["CRECI regularizado", "Atendimento personalizado", "Financiamento facilitado", "Segurança jurídica total", "Portfólio exclusivo", "Avaliação gratuita"].map((item) => (
+                        {["CRECI regularizado", "Curadoria criteriosa", "Análise de valorização", "Segurança jurídica total", "Portfólio exclusivo", "Assessoria a investidores"].map((item) => (
                             <div className="about-list-item" key={item}>
                                 <i className="ri-check-line"></i> {item}
                             </div>
