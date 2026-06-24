@@ -1,10 +1,13 @@
 import OpenAI from 'openai';
 import { supabaseAdmin } from '@/lib/supabase';
 
-const client = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: 'https://api.deepseek.com',
-});
+// criado sob demanda (em runtime), para o build não exigir a chave
+function getClient() {
+  return new OpenAI({
+    apiKey: process.env.DEEPSEEK_API_KEY,
+    baseURL: 'https://api.deepseek.com',
+  });
+}
 
 function buildSystemPrompt(leadName?: string) {
   const greeting = leadName
@@ -89,7 +92,7 @@ export async function POST(request: Request) {
     const props = properties ?? [];
     const systemPrompt = buildSystemPrompt(leadName);
 
-    const response = await client.chat.completions.create({
+    const response = await getClient().chat.completions.create({
       model: 'deepseek-chat',
       max_tokens: 1024,
       messages: [
