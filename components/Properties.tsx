@@ -18,7 +18,7 @@ export default async function Properties() {
                         <p className="section-title">Oportunidades em Destaque</p>
                         <p className="section-sub">Terrenos selecionados com forte potencial de valorização.</p>
                     </div>
-                    <Link className="view-all" href="/terrenos">Ver todas as oportunidades <i className="ri-arrow-right-line"></i></Link>
+                    <Link className="view-all" href="/imoveis">Ver todas as oportunidades <i className="ri-arrow-right-line"></i></Link>
                 </div>
                 <div className="props-grid">
                     {properties?.map((p) => (

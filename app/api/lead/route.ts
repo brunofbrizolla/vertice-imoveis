@@ -4,7 +4,7 @@ import { supabaseAdmin } from '@/lib/supabase';
 // garantindo a captura mesmo que ela não conclua a qualificação.
 export async function POST(request: Request) {
   try {
-    const { name, whatsapp, interest } = await request.json();
+    const { name, whatsapp, interest, property, notes } = await request.json();
 
     if (!whatsapp || !String(whatsapp).trim()) {
       return Response.json({ error: 'WhatsApp é obrigatório.' }, { status: 400 });
@@ -17,6 +17,8 @@ export async function POST(request: Request) {
           name: name?.trim() || null,
           whatsapp: String(whatsapp).trim(),
           interest: interest?.trim() || 'Comprar',
+          property: property?.trim() || null,
+          notes: notes?.trim() || null,
           status: 'Novo',
         },
       ])

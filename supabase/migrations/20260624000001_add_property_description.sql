@@ -6,3 +6,6 @@ alter table properties add column if not exists images text[] default '{}';
 
 -- Tipo de imóvel: Terreno, Casa ou Apartamento
 alter table properties add column if not exists property_type text;
+
+-- Características/diferenciais (lista de tags)
+alter table properties add column if not exists features text[] default '{}';

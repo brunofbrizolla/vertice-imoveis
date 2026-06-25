@@ -20,6 +20,7 @@ interface Message {
   content: string;
   properties?: Property[];
   options?: string[];
+  navigateTo?: string;
 }
 
 const QUICK_ACTIONS = [

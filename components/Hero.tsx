@@ -3,8 +3,8 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 const STATS = [
-    { num: "650 m²+", label: "Metragem mínima por ativo" },
-    { num: "R$ 2 mi+", label: "Ticket por oportunidade" },
+    { num: "Casas", label: "e apartamentos de alto padrão" },
+    { num: "Terrenos", label: "premium para investir" },
     { num: "CRECI", label: "Registrado e regularizado" },
 ];
 
@@ -39,15 +39,15 @@ export default function Hero() {
             <div className="hero-overlay"></div>
             <motion.div className="hero-content" variants={container} initial="hidden" animate="show">
                 <motion.div className="hero-badge" variants={item}>
-                    <i className="ri-seedling-line"></i> Curadoria de terrenos para investidores
+                    <i className="ri-building-line"></i> Imóveis de alto padrão
                 </motion.div>
                 <motion.h1 className="hero-title" variants={item}>
-                    Terrenos premium que
-                    <span className="hero-title-gold">valorizam seu capital</span>
+                    Encontre o imóvel ideal.
+                    <span className="hero-title-gold">Sem complicação.</span>
                 </motion.h1>
                 <motion.p className="hero-sub" variants={item}>
-                    Oportunidades selecionadas acima de 650 m² e R$ 2 milhões, com foco em
-                    valorização, segurança patrimonial e potencial de retorno.
+                    Casas, apartamentos e terrenos premium, com especialistas prontos
+                    para guiar você em cada etapa.
                 </motion.p>
                 <motion.div className="hero-actions" variants={item}>
                     <a className="btn-primary" href="#imoveis">

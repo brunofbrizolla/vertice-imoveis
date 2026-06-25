@@ -503,6 +503,53 @@ nav a:hover {
   background: var(--gold-dark);
 }
 
+/* Aba "Vender" do filtro */
+.search-sell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: .5rem 0;
+}
+
+.search-sell p {
+  margin: 0;
+  color: #555;
+  font-size: .92rem;
+  line-height: 1.5;
+  flex: 1;
+  min-width: 240px;
+}
+
+.search-sell .btn-search {
+  flex-shrink: 0;
+}
+
+/* CTA fixa da página de imóvel (apenas mobile) */
+.prop-mobile-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .prop-mobile-cta {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: #fff;
+    border-top: 1px solid #eee;
+    padding: .6rem 1rem;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, .08);
+    text-decoration: none;
+  }
+}
+
 /* ── SECTION HEADER ── */
 .section-tag {
   display: inline-flex;

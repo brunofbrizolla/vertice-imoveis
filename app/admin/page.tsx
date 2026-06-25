@@ -33,6 +33,7 @@ interface Property {
   area: string;
   img: string | null;
   images: string[] | null;
+  features: string[] | null;
   description: string | null;
   active: boolean;
   created_at: string;
@@ -107,7 +108,7 @@ type Tab = 'dashboard' | 'leads' | 'imoveis' | 'visitas';
 const EMPTY_PROP = {
   title: '', price: '', price_label: '/ à vista', type: 'Venda' as 'Venda' | 'Locação',
   property_type: 'Terreno', location: '', beds: '', baths: '', area: '', img: '', description: '',
-  images: [] as string[],
+  features: '', images: [] as string[],
 };
 
 export default function AdminPage() {
@@ -178,6 +179,7 @@ export default function AdminPage() {
       type: p.type, property_type: p.property_type ?? (p.beds === 'Terreno' ? 'Terreno' : 'Casa'),
       location: p.location, beds: p.beds,
       baths: p.baths, area: p.area, img: p.img ?? '', description: p.description ?? '',
+      features: (p.features ?? []).join(', '),
       images: (p.images && p.images.length ? p.images : (p.img ? [p.img] : [])),
     });
     setEditId(p.id);
@@ -200,6 +202,7 @@ export default function AdminPage() {
       beds: isTerreno ? 'Terreno' : form.beds,
       baths: isTerreno ? 'Lote/Área' : form.baths,
       area: form.area, description: form.description,
+      features: form.features.split(',').map(s => s.trim()).filter(Boolean),
       images: form.images,
       img: form.images[0] || form.img || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
     };
@@ -672,6 +675,19 @@ export default function AdminPage() {
                   placeholder="Descreva o imóvel: características, diferenciais, documentação, potencial..."
                   rows={4}
                   style={{ width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box', resize: 'vertical' }}
+                />
+              </div>
+
+              {/* Características */}
+              <div style={{ gridColumn: '1/-1' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#1A2E49', marginBottom: '0.35rem' }}>
+                  Características <span style={{ fontWeight: 400, color: '#888' }}>(separe por vírgula)</span>
+                </label>
+                <input
+                  value={form.features}
+                  onChange={e => setForm(prev => ({ ...prev, features: e.target.value }))}
+                  placeholder="Ex: Documentação regularizada, Aceita financiamento, Vista para o mar"
+                  style={{ width: '100%', border: '1.5px solid #e0e0e0', borderRadius: '8px', padding: '0.6rem 0.85rem', fontFamily: 'inherit', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
                 />
               </div>
 
