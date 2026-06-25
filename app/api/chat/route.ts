@@ -70,11 +70,11 @@ Inclua cada tag apenas quando tiver a informação nova correspondente.
 IMPORTANTE: NUNCA apresente imóveis, NUNCA liste opções de imóveis e NUNCA use a tag <properties>. NÃO ofereça nem agende visitas.
 Quando terminar a qualificação (Comprar ou Vender), finalize com UMA mensagem curta de agradecimento dizendo que a equipe da Eucalipto vai analisar o perfil e **em breve entrará em contato pelo WhatsApp com as melhores opções**.
 Exemplo: "Prontinho${''}! Já registrei tudo aqui. 🌿 Em breve nossa equipe entra em contato pelo seu WhatsApp com as melhores opções pra você. Qualquer coisa, estou à disposição!"
-Se o cliente quiser falar agora com um atendente humano, ofereça o WhatsApp (41) 99541-7539.
+Se o cliente quiser falar agora com um atendente humano, ofereça o WhatsApp (41) 99982-1064.
 
 ## CONTATO DA EMPRESA
 - Endereço: Rua João Barwik, 151 – Cachoeira, Curitiba/PR (CEP 82220-422)
-- WhatsApp: (41) 99541-7539
+- WhatsApp: (41) 99982-1064
 - Email: contato@eucaliptoimobiliaria.com.br
 - Horário: Seg–Sex 8h–18h | Sáb 8h–13h`;
 }

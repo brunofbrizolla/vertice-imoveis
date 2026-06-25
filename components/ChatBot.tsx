@@ -297,7 +297,7 @@ export default function ChatBot() {
                                     <i className="ri-eye-line"></i> Ver imóvel
                                   </a>
                                   <a
-                                    href={`https://wa.me/5541995417539?text=Tenho interesse no imóvel: ${encodeURIComponent(p.title)}`}
+                                    href={`https://wa.me/5541999821064?text=Tenho interesse no imóvel: ${encodeURIComponent(p.title)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="chat-prop-btn"

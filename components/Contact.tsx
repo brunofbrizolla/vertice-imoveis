@@ -19,7 +19,7 @@ export default function Contact() {
                         <div className="contact-item-icon"><i className="ri-phone-line"></i></div>
                         <div>
                             <strong>Telefone / WhatsApp</strong>
-                            <span>(41) 99541-7539</span>
+                            <span>(41) 99982-1064</span>
                         </div>
                     </div>
                     <div className="contact-item">

@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import ChatBot from '@/components/ChatBot';
 
-const WHATSAPP = '5541995417539';
+const WHATSAPP = '5541999821064';
 
 async function getProperty(id: string) {
   const { data } = await supabaseAdmin

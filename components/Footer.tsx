@@ -51,7 +51,7 @@ export default function Footer() {
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-phone-line"></i>
-                        <span>(41) 99541-7539</span>
+                        <span>(41) 99982-1064</span>
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-mail-line"></i>
