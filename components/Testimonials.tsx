@@ -1,27 +1,27 @@
 const testimonials = [
     {
-        text: "\"A curadoria da Eucalipto foi certeira. Adquiri um terreno com excelente potencial e a valorização superou minhas expectativas. Assessoria impecável.\"",
+        text: "\"Comprei meu terreno com a Eucalipto e a curadoria foi certeira. Adquiri um lote com excelente potencial e a valorização superou minhas expectativas. Assessoria impecável do começo ao fim.\"",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
         name: "Ricardo Menezes",
-        role: "Investidor – Portfólio de terrenos",
+        role: "Comprou um terreno · Curitiba/PR",
     },
     {
-        text: "\"Profissionalismo do início ao fim. Análise de mercado sólida e total segurança jurídica na escritura. É o parceiro que todo investidor precisa.\"",
+        text: "\"Fechei a compra do meu lote comercial com total tranquilidade. Análise de mercado sólida e total segurança jurídica na escritura. Recomendo de olhos fechados.\"",
         avatar: "https://randomuser.me/api/portraits/men/44.jpg",
         name: "Carlos Eduardo Lima",
-        role: "Investidor – Lotes comerciais",
+        role: "Comprou um lote comercial · Pinhais/PR",
     },
     {
-        text: "\"Eles entenderam exatamente o meu perfil e trouxeram oportunidades que eu não encontraria sozinha. Negócio seguro e rentável.\"",
+        text: "\"Eles entenderam exatamente o meu perfil e me trouxeram a oportunidade que eu não encontraria sozinha. Comprei com segurança e fiz um ótimo negócio.\"",
         avatar: "https://randomuser.me/api/portraits/women/68.jpg",
         name: "Mariana Costa",
-        role: "Investidora – Banco de terras",
+        role: "Comprou um terreno · Colombo/PR",
     },
     {
-        text: "\"Adquirimos uma grande área para incorporação com a documentação 100% regularizada. Processo transparente, ágil e com acompanhamento próximo em cada etapa.\"",
+        text: "\"Compramos uma grande área com a documentação 100% regularizada. Processo transparente, ágil e com acompanhamento próximo em cada etapa da compra.\"",
         avatar: "https://randomuser.me/api/portraits/women/45.jpg",
         name: "Fernanda Albuquerque",
-        role: "Incorporadora – Grandes áreas",
+        role: "Comprou uma área para incorporação · São José dos Pinhais/PR",
     },
 ];
 
@@ -33,8 +33,8 @@ export default function Testimonials() {
                     <div className="section-tag" style={{ display: "inline-flex" }}>
                         <i className="ri-chat-quote-line"></i> Depoimentos
                     </div>
-                    <p className="section-title">O que Nossos Investidores Dizem</p>
-                    <p className="section-sub">A confiança de quem investe com a gente é o nosso maior patrimônio.</p>
+                    <p className="section-title">O que Nossos Clientes Dizem</p>
+                    <p className="section-sub">A confiança de quem já comprou com a Eucalipto é o nosso maior patrimônio.</p>
                 </div>
                 <div className="testi-grid">
                     {testimonials.map((t) => (

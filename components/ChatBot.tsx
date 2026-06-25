@@ -193,6 +193,12 @@ export default function ChatBot() {
     }
   };
 
+  // abrir o chat já inicia o fluxo: form de captura (se ainda não houver lead) → qualificação
+  const openChat = () => {
+    setOpen(true);
+    if (!leadId) setStage('form');
+  };
+
   const showQuickActions = stage === 'chat' && messages.length === 1 && messages[0] === CASUAL_GREETING && !loading;
 
   return (
@@ -368,10 +374,10 @@ export default function ChatBot() {
 
       {!open && (
         <div className="chatbot-float-container">
-          <div className="chat-tooltip" onClick={() => setOpen(true)}>Fale com um especialista</div>
+          <div className="chat-tooltip" onClick={openChat}>Fale com um especialista</div>
           <button
             className="chatbot-float-btn"
-            onClick={() => setOpen(true)}
+            onClick={openChat}
             title="Falar com IA"
             aria-label="Abrir assistente virtual"
             style={{ padding: 0, overflow: 'hidden' }}
