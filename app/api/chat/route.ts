@@ -73,7 +73,7 @@ Exemplo: "Prontinho${''}! Já registrei tudo aqui. 🌿 Em breve nossa equipe en
 Se o cliente quiser falar agora com um atendente humano, ofereça o WhatsApp (41) 99982-1064.
 
 ## CONTATO DA EMPRESA
-- Endereço: Rua João Barwik, 151 – Cachoeira, Curitiba/PR (CEP 82220-422)
+- Endereço: Rua Antônio Krainiski, 191 – Abranches, Curitiba/PR (CEP 82130-220)
 - WhatsApp: (41) 99982-1064
 - Email: contato@eucaliptoimobiliaria.com.br
 - Horário: Seg–Sex 8h–18h | Sáb 8h–13h`;

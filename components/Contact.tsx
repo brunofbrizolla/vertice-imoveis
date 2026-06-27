@@ -12,7 +12,7 @@ export default function Contact() {
                         <div className="contact-item-icon"><i className="ri-map-pin-line"></i></div>
                         <div>
                             <strong>Endereço</strong>
-                            <span>Rua João Barwik, 151 – Cachoeira, Curitiba/PR · 82220-422</span>
+                            <span>Rua Antônio Krainiski, 191 – Abranches, Curitiba/PR · 82130-220</span>
                         </div>
                     </div>
                     <div className="contact-item">

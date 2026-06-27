@@ -47,7 +47,7 @@ export default function Footer() {
                     <h4>Contato</h4>
                     <div className="footer-contact-item">
                         <i className="ri-map-pin-line"></i>
-                        <span>Rua João Barwik, 151 – Cachoeira, Curitiba/PR</span>
+                        <span>Rua Antônio Krainiski, 191 – Abranches, Curitiba/PR</span>
                     </div>
                     <div className="footer-contact-item">
                         <i className="ri-phone-line"></i>
