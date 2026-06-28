@@ -2,7 +2,7 @@ const metrics = [
     { value: "R$ 850M+", label: "Em terrenos negociados" },
     { value: "320+", label: "Investidores atendidos" },
     { value: "650 m²", label: "Metragem mínima por ativo" },
-    { value: "12 anos", label: "De mercado e curadoria" },
+    { value: "16 anos", label: "De mercado e curadoria" },
 ];
 
 export default function Metrics() {

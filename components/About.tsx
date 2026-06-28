@@ -10,15 +10,15 @@ export default function About() {
                         alt="Eucalipto Imobiliária e Construtora"
                     />
                     <div className="about-years">
-                        <strong>10+</strong>
+                        <strong>15+</strong>
                         <span>Anos de Mercado</span>
                     </div>
                 </div>
                 <div className="about-content">
                     <div className="section-tag"><i className="ri-information-line"></i> Sobre a Eucalipto</div>
-                    <p className="section-title">Mais de uma Década Selecionando Terrenos de Alto Potencial</p>
+                    <p className="section-title">Mais de 15 Anos Selecionando Terrenos de Alto Potencial</p>
                     <p className="section-sub">
-                        A Eucalipto Imobiliária e Construtora é especializada em terrenos premium para investidores. Desde 2013,
+                        A Eucalipto Imobiliária e Construtora é especializada em terrenos premium para investidores. Desde 2009,
                         unimos análise de mercado, curadoria criteriosa e segurança jurídica em cada negócio.
                     </p>
                     <p className="section-sub" style={{ marginTop: ".75rem" }}>
